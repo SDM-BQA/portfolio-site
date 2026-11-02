@@ -1,0 +1,808 @@
+@import "tailwindcss";
+
+/* SRS 6.3 colour tokens. Dark is the no-JS default; the inline script in
+   layout.tsx sets data-theme before first paint. */
+:root {
+  color-scheme: dark;
+  --bg: #101114;
+  --surface: #191b20;
+  --elevated: #20232a;
+  --line: #292c35;
+  --ink: #f3f2f7;
+  --muted: #a5a6b0;
+  --accent: #a78bfa;
+  --accent-hover: #b9a4ff;
+  --accent-soft: #302747;
+  --on-accent: #17131f;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --selection: #a78bfa;
+  --on-selection: #17131f;
+  --glow: rgb(167 139 250 / 0.16);
+  --shadow: 0 16px 40px rgb(0 0 0 / 0.35);
+
+  /* SRS 8.2 motion tokens */
+  --dur-fast: 150ms;
+  --dur-standard: 280ms;
+  --dur-emphasis: 550ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f7f4;
+  --surface: #ffffff;
+  --elevated: #f0f0ec;
+  --line: #e5e5e0;
+  --ink: #20212a;
+  --muted: #62636d;
+  --accent: #7255c7;
+  --accent-hover: #6042b6;
+  --accent-soft: #eee8fc;
+  --on-accent: #ffffff;
+  --success: #16834a;
+  --warning: #a66a00;
+  --error: #c43d43;
+  --selection: #d9ccff;
+  --on-selection: #20212a;
+  --glow: rgb(114 85 199 / 0.12);
+  --shadow: 0 16px 40px rgb(32 33 42 / 0.1);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--on-selection);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1200px;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.625rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 0.625rem;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition:
+      transform var(--dur-fast) var(--ease),
+      background-color var(--dur-fast) var(--ease),
+      border-color var(--dur-fast) var(--ease),
+      color var(--dur-fast) var(--ease);
+  }
+
+  .btn {
+    transform: translate(var(--tx, 0px), calc(var(--ty, 0px) + var(--lift, 0px)));
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    --lift: -2px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  .btn-ghost:hover {
+    background: var(--elevated);
+    border-color: var(--muted);
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+    border-radius: 0.5rem;
+    color: var(--muted);
+    transition:
+      background-color var(--dur-fast) var(--ease),
+      color var(--dur-fast) var(--ease);
+  }
+
+  .icon-btn:hover {
+    background: var(--elevated);
+    color: var(--ink);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 0.875rem;
+  }
+
+  .tag {
+    display: inline-flex;
+    padding: 0.1875rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 0.375rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .eyebrow {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .text-link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .text-link:hover {
+    color: var(--accent-hover);
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Hero entrance is CSS so the first paint needs no JavaScript. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.hero-in {
+  animation: rise var(--dur-emphasis) var(--ease) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.hero-backdrop {
+  background:
+    radial-gradient(50rem 32rem at 76% 34%, var(--glow), transparent 70%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 72px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 72px 100%;
+  mask-image: radial-gradient(60rem 36rem at 70% 35%, black 10%, transparent 75%);
+  opacity: 0.7;
+}
+
+/* Disclosure height without measuring the DOM; collapsed content stays out of
+   the accessibility tree through visibility. */
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--dur-standard) var(--ease),
+    visibility var(--dur-standard);
+}
+
+.disclosure[data-open="true"] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+
+.disclosure > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.project-card {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
+  transition:
+    transform var(--dur-standard) var(--ease),
+    border-color var(--dur-standard) var(--ease),
+    box-shadow var(--dur-standard) var(--ease);
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  --lift: -4px;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: var(--shadow);
+}
+
+.project-card .card-arrow {
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.project-card:hover .card-arrow,
+.project-card:focus-within .card-arrow {
+  transform: translateX(4px);
+}
+
+/* Cursor-following glow; --mx and --my come from SiteEffects. */
+@layer components {
+  /* Layered so a utility such as "sticky" can still override it. */
+  .spotlight {
+    position: relative;
+  }
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-standard) var(--ease);
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+.preview {
+  padding: 0.875rem;
+  border: 1px dashed var(--line);
+  border-radius: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.preview-step {
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.project-card:hover .preview-step,
+.project-card:focus-within .preview-step {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Experience: stacked disclosures on narrow screens. From 1024px one DOM order
+   becomes two columns, with every panel sharing the detail column. */
+.exp-line {
+  position: absolute;
+  top: 1rem;
+  bottom: 1.5rem;
+  left: 1.1875rem;
+  width: 1px;
+}
+
+@media (min-width: 1024px) {
+  .exp-list {
+    display: grid;
+    grid-template-columns: 22rem minmax(0, 1fr);
+    grid-template-rows: repeat(var(--rows), auto) 1fr;
+    column-gap: 2rem;
+  }
+
+  .exp-line {
+    grid-column: 1;
+    grid-row: 1 / span var(--rows);
+  }
+
+  .exp-item {
+    display: contents;
+  }
+
+  .exp-trigger {
+    grid-column: 1;
+  }
+
+  .exp-panel {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: start;
+    transition: none;
+  }
+}
+
+.disclosure[data-open="true"] .stagger > * {
+  animation: rise var(--dur-standard) var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 50ms);
+}
+
+.term-entry {
+  animation: rise var(--dur-standard) var(--ease);
+}
+
+.type-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.08em;
+  vertical-align: -0.12em;
+  background: var(--accent);
+}
+
+.type-caret.is-live {
+  animation: caret 1s steps(2, jump-none) infinite;
+}
+
+@keyframes caret {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.hero-aurora {
+  background: radial-gradient(circle, var(--glow), transparent 68%);
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: translate(-6%, -4%) scale(1);
+  }
+  to {
+    transform: translate(8%, 8%) scale(1.2);
+  }
+}
+
+.tool-icon {
+  color: var(--brand, var(--ink));
+}
+
+.tool-tile {
+  color: var(--ink);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.tool-tile .tool-icon {
+  transition: transform var(--dur-standard) var(--ease);
+}
+
+.tool-tile:hover,
+.tool-tile:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--brand, var(--muted));
+}
+
+.tool-tile:hover .tool-icon {
+  transform: scale(1.18) rotate(-4deg);
+}
+
+.tool-tile.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.terminal-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  padding: 0.5rem 1.125rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow:
+    0 10px 30px color-mix(in srgb, var(--accent) 45%, transparent),
+    var(--shadow);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.terminal-fab:hover,
+.terminal-fab:focus-visible {
+  transform: translateY(-3px) scale(1.03);
+  background: var(--accent-hover);
+}
+
+/* A short pulse draws the eye on arrival, then the button stays calm. */
+.terminal-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  animation: fab-ping 1.8s var(--ease) 1.2s 3;
+}
+
+@keyframes fab-ping {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.terminal-fab-key {
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+
+.terminal-dialog {
+  margin: auto;
+  width: min(76rem, calc(100vw - 2rem));
+  max-width: none;
+  height: min(50rem, calc(100dvh - 2rem));
+  max-height: none;
+  background: transparent;
+  color: var(--ink);
+}
+
+.terminal-dialog::backdrop {
+  background: rgb(10 10 14 / 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.terminal-dialog[open] {
+  animation: rise var(--dur-standard) var(--ease);
+}
+
+@media (max-width: 767px) {
+  .terminal-dialog {
+    width: 100vw;
+    height: 100dvh;
+  }
+}
+
+/* Custom cursor: the class is only added after the cursor has actually
+   rendered, so native cursors remain if the effect never starts. */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+
+html.custom-cursor input,
+html.custom-cursor textarea {
+  cursor: text !important;
+}
+
+.cursor-hand {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+/* Offsets the SVG so the fingertip sits exactly on the pointer position. */
+.cursor-hand-pose {
+  width: 40px;
+  margin: -1px 0 0 -12px;
+  transform: rotate(-16deg);
+  transform-origin: 12px 1px;
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.35));
+  transition: transform 90ms var(--ease);
+}
+
+.cursor-hand svg {
+  display: block;
+  overflow: visible;
+}
+
+.hand-finger {
+  transform-box: view-box;
+  transform-origin: 14px 34px;
+  transition: transform 90ms var(--ease);
+}
+
+.hand-led,
+.hand-tip {
+  transition: fill var(--dur-fast) var(--ease);
+}
+
+/* Over something clickable: the hand leans in and its light switches on. */
+.cursor-hand[data-active="true"] .cursor-hand-pose {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.cursor-hand[data-active="true"] .hand-led,
+.cursor-hand[data-active="true"] .hand-tip {
+  fill: #4ade80;
+}
+
+/* The click: the finger compresses and the hand drives down toward the fingertip. */
+.cursor-hand[data-pressed="true"] .cursor-hand-pose {
+  transform: rotate(-6deg) translateY(5px) scale(0.92);
+}
+
+.cursor-hand[data-pressed="true"] .hand-finger {
+  transform: scaleY(0.72);
+}
+
+.cursor-ripple {
+  position: fixed;
+  z-index: 99;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  pointer-events: none;
+  animation: cursor-ripple 420ms var(--ease) forwards;
+}
+
+@keyframes cursor-ripple {
+  from {
+    opacity: 0.9;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.contact-glow {
+  background:
+    radial-gradient(40rem 24rem at 80% 35%, var(--glow), transparent 70%),
+    radial-gradient(30rem 20rem at 5% 90%, var(--glow), transparent 70%);
+}
+
+/* A packet travels along the wire when a draft is sent. */
+.contact-wire {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.contact-wire > span {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 25%;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: contact-packet 900ms var(--ease) both;
+}
+
+@keyframes contact-packet {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.contact-field {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1rem;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.contact-field::placeholder {
+  color: var(--muted);
+}
+
+.contact-field:hover {
+  border-color: var(--muted);
+}
+
+/* Loading screen. Hidden unless the inline script chose to show it, and the
+   fail-safe animation removes it even if JavaScript never finishes loading. */
+.loader {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.boot .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    transition:
+      opacity 450ms var(--ease),
+      transform 450ms var(--ease);
+  }
+
+  html.boot .loader:not([data-run]) {
+    animation: loader-failsafe 1ms linear 8s forwards;
+  }
+
+  html.boot .loader[data-leaving] {
+    opacity: 0;
+    transform: translateY(-3%) scale(1.02);
+    pointer-events: none;
+  }
+
+  html.boot body:has(.loader:not([data-leaving])) {
+    overflow: hidden;
+  }
+}
+
+@keyframes loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.loader-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(36rem 24rem at 50% 45%, var(--glow), transparent 70%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 56px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 56px 100%;
+  mask-image: radial-gradient(38rem 26rem at 50% 45%, black 15%, transparent 75%);
+  opacity: 0.6;
+}
+
+.loader > div:not(.loader-grid) {
+  position: relative;
+}
+
+.loader-wordmark {
+  animation: rise 500ms var(--ease) both;
+}
+
+/* Held back until LoadingScreen sets data-run, so the log and bar start together. */
+.loader-line {
+  opacity: 0;
+}
+
+.loader[data-run] .loader-line {
+  opacity: 1;
+  animation: rise 240ms var(--ease) both;
+  animation-delay: calc(250ms + var(--step) * 370ms);
+}
+
+.loader-bar {
+  transform: scaleX(0);
+}
+
+.loader[data-run] .loader-bar {
+  transform: none;
+  animation: loader-progress 3s linear both;
+}
+
+@keyframes loader-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Dim the rain behind the headline so the text stays readable. */
+.code-rain {
+  mask-image: linear-gradient(90deg, rgb(0 0 0 / 0.3) 0%, rgb(0 0 0 / 0.3) 42%, black 72%);
+}
+
+/* The name waits for its decode animation. The delayed fallback keeps it from
+   staying hidden if JavaScript fails after the inline theme script has run. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-scramble]:not([data-started]) {
+    opacity: 0;
+    animation: name-fallback 1ms linear 8s forwards;
+  }
+}
+
+@keyframes name-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Applied briefly by toggleTheme so ordinary hover states stay fast. */
+html.theme-transition,
+html.theme-transition * {
+  transition:
+    background-color var(--dur-standard) ease,
+    border-color var(--dur-standard) ease,
+    color var(--dur-standard) ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .btn,
+  .btn:hover,
+  .btn:focus-visible,
+  .project-card,
+  .project-card:hover,
+  .project-card:focus-within {
+    transform: none;
+  }
+}
