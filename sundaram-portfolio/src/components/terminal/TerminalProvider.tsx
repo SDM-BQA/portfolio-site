@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { showSkill } from "@/components/skills/selectSkill";
 import { runCommand, type OutputLine } from "./commands";
 import { FloatingTerminalButton } from "./FloatingTerminalButton";
 import { TerminalDialog } from "./TerminalDialog";
@@ -73,6 +74,12 @@ export function TerminalProvider({ children }: { children: ReactNode }) {
       }
       print(trimmed, result.lines);
       if (result.open) window.open(result.open, "_blank", "noopener,noreferrer");
+      if (result.showSkill) {
+        // Close the modal first so the page can scroll; the next frame runs after it has gone.
+        const name = result.showSkill;
+        setIsOpen(false);
+        window.requestAnimationFrame(() => showSkill(name));
+      }
     },
     [clear, print],
   );

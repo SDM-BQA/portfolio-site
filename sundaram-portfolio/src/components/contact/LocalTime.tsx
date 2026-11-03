@@ -1,6 +1,5 @@
 "use client";
 
-import { Clock } from "lucide-react";
 import { useSyncExternalStore } from "react";
 
 const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -24,16 +23,13 @@ export function LocalTime() {
   );
 
   return (
-    <div className="card spotlight flex items-center gap-4 p-4">
-      <span className="grid size-10 flex-none place-items-center rounded-lg bg-accent-soft text-accent">
-        <Clock className="size-5" aria-hidden="true" />
+    <p className="flex items-center gap-2.5 font-mono text-xs text-muted">
+      <span className="live-dot" aria-hidden="true" />
+      Bengaluru
+      <span role="timer" data-local-time className="text-ink tabular-nums">
+        {time}
       </span>
-      <p className="min-w-0">
-        <span className="block text-sm text-muted">Time in Bengaluru (IST)</span>
-        <span role="timer" data-local-time className="font-display block text-2xl font-semibold tracking-tight tabular-nums">
-          {time}
-        </span>
-      </p>
-    </div>
+      IST
+    </p>
   );
 }

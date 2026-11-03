@@ -15,10 +15,10 @@ export default function Home() {
       <Hero />
       <Timeline />
       <ProjectsSection />
-      <Education />
       <TerminalSection />
       <About />
       <Skills />
+      <Education />
       <Contact />
     </>
   );

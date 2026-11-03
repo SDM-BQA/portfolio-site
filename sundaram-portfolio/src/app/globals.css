@@ -236,27 +236,6 @@ h3 {
   opacity: 0.7;
 }
 
-/* Disclosure height without measuring the DOM; collapsed content stays out of
-   the accessibility tree through visibility. */
-.disclosure {
-  display: grid;
-  grid-template-rows: 0fr;
-  visibility: hidden;
-  transition:
-    grid-template-rows var(--dur-standard) var(--ease),
-    visibility var(--dur-standard);
-}
-
-.disclosure[data-open="true"] {
-  grid-template-rows: 1fr;
-  visibility: visible;
-}
-
-.disclosure > * {
-  min-height: 0;
-  overflow: hidden;
-}
-
 .project-card {
   transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
   transition:
@@ -324,48 +303,38 @@ h3 {
   color: var(--accent);
 }
 
-/* Experience: stacked disclosures on narrow screens. From 1024px one DOM order
-   becomes two columns, with every panel sharing the detail column. */
-.exp-line {
+/* Experience: a git graph of roles. */
+.git-commit {
+  transition:
+    transform var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.git-commit:hover {
+  transform: translateX(4px);
+  border-color: var(--muted);
+}
+
+.git-commit.is-active {
+  border-color: var(--accent);
+  background: var(--elevated);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* HEAD pulses gently, like a live cursor on the latest commit. */
+.git-head::after {
+  content: "";
   position: absolute;
-  top: 1rem;
-  bottom: 1.5rem;
-  left: 1.1875rem;
-  width: 1px;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--accent);
+  animation: live-ping 2.4s ease-out infinite;
 }
 
-@media (min-width: 1024px) {
-  .exp-list {
-    display: grid;
-    grid-template-columns: 22rem minmax(0, 1fr);
-    grid-template-rows: repeat(var(--rows), auto) 1fr;
-    column-gap: 2rem;
-  }
-
-  .exp-line {
-    grid-column: 1;
-    grid-row: 1 / span var(--rows);
-  }
-
-  .exp-item {
-    display: contents;
-  }
-
-  .exp-trigger {
-    grid-column: 1;
-  }
-
-  .exp-panel {
-    grid-column: 2;
-    grid-row: 1 / -1;
-    align-self: start;
-    transition: none;
-  }
-}
-
-.disclosure[data-open="true"] .stagger > * {
-  animation: rise var(--dur-standard) var(--ease) both;
-  animation-delay: calc(var(--i, 0) * 50ms);
+/* The branch fades out below its first commit. */
+.git-fade {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
 }
 
 .term-entry {
@@ -548,10 +517,10 @@ html.custom-cursor textarea {
 
 /* Offsets the SVG so the fingertip sits exactly on the pointer position. */
 .cursor-hand-pose {
-  width: 40px;
-  margin: -1px 0 0 -12px;
+  width: 30px;
+  margin: -1px 0 0 -9px;
   transform: rotate(-16deg);
-  transform-origin: 12px 1px;
+  transform-origin: 9px 1px;
   filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.35));
   transition: transform 90ms var(--ease);
 }
@@ -584,7 +553,7 @@ html.custom-cursor textarea {
 
 /* The click: the finger compresses and the hand drives down toward the fingertip. */
 .cursor-hand[data-pressed="true"] .cursor-hand-pose {
-  transform: rotate(-6deg) translateY(5px) scale(0.92);
+  transform: rotate(-6deg) translateY(4px) scale(0.92);
 }
 
 .cursor-hand[data-pressed="true"] .hand-finger {
@@ -594,9 +563,9 @@ html.custom-cursor textarea {
 .cursor-ripple {
   position: fixed;
   z-index: 99;
-  width: 44px;
-  height: 44px;
-  margin: -22px 0 0 -22px;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
   border: 2px solid var(--accent);
   border-radius: 999px;
   pointer-events: none;
@@ -620,51 +589,80 @@ html.custom-cursor textarea {
     radial-gradient(30rem 20rem at 5% 90%, var(--glow), transparent 70%);
 }
 
-/* A packet travels along the wire when a draft is sent. */
-.contact-wire {
-  position: relative;
-  height: 2px;
-  overflow: hidden;
-  background: var(--line);
+/* Contact: the email address is the centrepiece, with a one-line terminal prompt below. */
+.contact-channel {
+  transition:
+    transform var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
-.contact-wire > span {
-  position: absolute;
-  inset-block: 0;
-  left: 0;
-  width: 25%;
-  border-radius: 999px;
+.contact-channel:hover,
+.contact-channel:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--brand, var(--accent));
+}
+
+.contact-channel-icon {
+  transition:
+    background-color var(--dur-standard) var(--ease),
+    color var(--dur-standard) var(--ease),
+    transform var(--dur-standard) var(--ease);
+}
+
+.contact-channel:hover .contact-channel-icon,
+.contact-channel:focus-visible .contact-channel-icon {
+  background: var(--brand, var(--accent));
+  color: #fff;
+  transform: rotate(-8deg) scale(1.08);
+}
+
+/* The whole card shows focus, so the input itself doesn't draw a second ring. */
+.contact-prompt input:focus-visible {
+  outline: none;
+}
+
+.contact-prompt:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
+}
+
+.contact-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  translate: 0 0.15em;
   background: var(--accent);
-  box-shadow: 0 0 12px var(--accent);
-  animation: contact-packet 900ms var(--ease) both;
+  animation: contact-blink 1.1s steps(1) infinite;
 }
 
-@keyframes contact-packet {
-  from {
-    transform: translateX(-100%);
+@keyframes contact-blink {
+  50% {
+    opacity: 0;
   }
+}
+
+.live-dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--success);
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: live-ping 2s ease-out infinite;
+}
+
+@keyframes live-ping {
   to {
-    transform: translateX(400%);
+    opacity: 0;
+    transform: scale(2.6);
   }
-}
-
-.contact-field {
-  width: 100%;
-  padding: 0.625rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 0.5rem;
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 1rem;
-  transition: border-color var(--dur-fast) var(--ease);
-}
-
-.contact-field::placeholder {
-  color: var(--muted);
-}
-
-.contact-field:hover {
-  border-color: var(--muted);
 }
 
 /* Loading screen. Hidden unless the inline script chose to show it, and the

@@ -1,4 +1,5 @@
-export type Skill = { name: string; context: string; usedIn: string[] };
+/** `core` marks the production stack, shown as large tiles; everything else is listed compactly. */
+export type Skill = { name: string; context: string; usedIn: string[]; core?: boolean };
 export type SkillGroup = { category: string; skills: Skill[] };
 
 const HELPEE = "Helpee";
@@ -6,13 +7,21 @@ const CORELOG = "CoreLog";
 const MENTOR = "Virtual Mentor";
 const THIS_SITE = "This site";
 
+/** Project filters for the skills section, with the section each one links to. */
+export const skillProjects = [
+  { name: HELPEE, href: "#experience" },
+  { name: CORELOG, href: "#projects" },
+  { name: MENTOR, href: "#projects" },
+  { name: THIS_SITE, href: "#home" },
+];
+
 /** Context describes where a skill was used; there are deliberately no proficiency ratings. */
 export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
     skills: [
-      { name: "JavaScript", context: "My everyday language across the frontend and backend.", usedIn: [MENTOR] },
-      { name: "TypeScript", context: "Typed code for larger applications, including CoreLog and this portfolio.", usedIn: [CORELOG, THIS_SITE] },
+      { name: "JavaScript", context: "My everyday language across the frontend and backend.", usedIn: [MENTOR], core: true },
+      { name: "TypeScript", context: "Typed code for larger applications, including CoreLog and this portfolio.", usedIn: [CORELOG, THIS_SITE], core: true },
       { name: "Java", context: "Part of my programming foundation, including academic coursework.", usedIn: [] },
       { name: "C", context: "Part of my programming foundation, including data structure programs.", usedIn: [] },
     ],
@@ -20,7 +29,7 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
     skills: [
-      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, CORELOG, MENTOR, THIS_SITE] },
+      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, CORELOG, MENTOR, THIS_SITE], core: true },
       { name: "HTML", context: "The base of every web interface I build; covered by my freeCodeCamp Responsive Web Design certificate.", usedIn: [THIS_SITE] },
       { name: "CSS", context: "Responsive layouts and theming, including this site's light and dark design tokens.", usedIn: [THIS_SITE] },
       { name: "Tailwind CSS", context: "Utility-first styling, used throughout this portfolio.", usedIn: [THIS_SITE] },
@@ -29,16 +38,16 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Backend",
     skills: [
-      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, CORELOG, MENTOR] },
-      { name: "Express", context: "Server framework for the CoreLog backend and the Virtual Mentor REST APIs.", usedIn: [CORELOG, MENTOR] },
-      { name: "GraphQL", context: "Designing APIs and optimising resolvers for dashboard modules at Helpee.", usedIn: [HELPEE] },
+      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, CORELOG, MENTOR], core: true },
+      { name: "Express", context: "Server framework for the CoreLog backend and the Virtual Mentor REST APIs.", usedIn: [CORELOG, MENTOR], core: true },
+      { name: "GraphQL", context: "Designing APIs and optimising resolvers for dashboard modules at Helpee.", usedIn: [HELPEE], core: true },
       { name: "REST APIs", context: "Built for authentication, session tracking and data storage in Virtual Mentor.", usedIn: [MENTOR] },
     ],
   },
   {
     category: "Databases",
     skills: [
-      { name: "MongoDB", context: "Query optimisation at Helpee and multi-content-type schema design in CoreLog.", usedIn: [HELPEE, CORELOG, MENTOR] },
+      { name: "MongoDB", context: "Query optimisation at Helpee and multi-content-type schema design in CoreLog.", usedIn: [HELPEE, CORELOG, MENTOR], core: true },
       { name: "MySQL", context: "Relational database skills, supported by SQL Essential Training on LinkedIn Learning.", usedIn: [] },
     ],
   },
@@ -46,7 +55,7 @@ export const skillGroups: SkillGroup[] = [
     category: "Cloud",
     skills: [
       { name: "Vercel", context: "Hosts CoreLog.", usedIn: [CORELOG] },
-      { name: "AWS", context: "In professional work at Helpee: AWS-hosted dashboard modules and AWS Rekognition for profile-photo verification.", usedIn: [HELPEE] },
+      { name: "AWS", context: "In professional work at Helpee: AWS-hosted dashboard modules and AWS Rekognition for profile-photo verification.", usedIn: [HELPEE], core: true },
     ],
   },
   {

@@ -10,7 +10,7 @@ const MIN_PRESS_MS = 170;
 /** A mechanical pointing hand. The fingertip at (14, 1) in the viewBox is the hotspot. */
 function RobotHand() {
   return (
-    <svg viewBox="0 0 48 66" width="40" height="55" fill="none" stroke="#20212a" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 48 66" width="30" height="41" fill="none" stroke="#20212a" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
       {/* Curled fingers */}
       <rect x="20" y="24" width="7" height="12" rx="3" fill="#aeb0bd" />
       <rect x="27" y="26" width="7" height="11" rx="3" fill="#aeb0bd" />

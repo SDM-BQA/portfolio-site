@@ -5,6 +5,9 @@ export type Role = {
   organisation: string;
   location: string;
   period: string;
+  /** "YYYY-MM"; `end` is omitted for the current role. Used for the live duration. */
+  start: string;
+  end?: string;
   highlight?: { label: string; text: string };
   details: string[];
   stack: string[];
@@ -28,6 +31,7 @@ export const roles: Role[] = [
     organisation: "Helpee Elder Care",
     location: "Bengaluru",
     period: "December 2025 – Present",
+    start: "2025-12",
     highlight: {
       label: "Estimated result",
       text: "70–80% reduction in the backlog of unpaid invoices on closed cases",
@@ -47,6 +51,8 @@ export const roles: Role[] = [
     organisation: "Helpee Elder Care",
     location: "Bengaluru",
     period: "June 2025 – December 2025",
+    start: "2025-06",
+    end: "2025-12",
     details: [
       "Developed and optimised GraphQL APIs and backend models for dashboard modules, including admin features for marketing analytics, error logging and elder-care data management.",
       "Worked with backend, frontend and product engineers in an Agile team, improving API response times and MongoDB query performance.",

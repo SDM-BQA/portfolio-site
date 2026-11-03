@@ -7,7 +7,7 @@ import { completeCommand, type OutputLine } from "./commands";
 import { useTerminal } from "./TerminalProvider";
 
 const PROMPT = "visitor@sundaram.dev:~$";
-const SUGGESTIONS = ["help", "whoami", "experience", "projects", "education", "skills", "contact"];
+const SUGGESTIONS = ["help", "whoami", "experience", "projects", "skills", "stack --details react", "contact"];
 const DEMO_COMMAND = "help";
 
 const lineStyles = {
@@ -133,7 +133,8 @@ export function TerminalWindow({
       event.preventDefault();
       const matches = completeCommand(input);
       if (matches.length === 1) setInput(matches[0]);
-      else if (matches.length > 1) print(input, [{ kind: "muted", text: matches.join("  ") }]);
+      // Lists just the word being completed, e.g. tool names rather than whole command lines.
+      else if (matches.length > 1) print(input, [{ kind: "muted", text: matches.map((match) => match.trim().split(" ").pop()).join("  ") }]);
     }
   }
 
