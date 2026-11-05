@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: project.summary,
-    ...(process.env.NEXT_PUBLIC_SITE_URL ? { alternates: { canonical: `/projects/${project.slug}` } } : {}),
+    alternates: { canonical: `/projects/${project.slug}` },
     openGraph: { title, description: project.summary, type: "article" },
   };
 }

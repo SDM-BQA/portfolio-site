@@ -4,9 +4,10 @@ import Link from "next/link";
 import { Eraser, X } from "lucide-react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
 import { completeCommand, type OutputLine } from "./commands";
+import { site } from "@/data/profile";
 import { useTerminal } from "./TerminalProvider";
 
-const PROMPT = "visitor@sundaram.dev:~$";
+const PROMPT = `visitor@${site.domain}:~$`;
 const SUGGESTIONS = ["help", "whoami", "experience", "projects", "skills", "stack --details react", "contact"];
 const DEMO_COMMAND = "help";
 
@@ -155,7 +156,7 @@ export function TerminalWindow({
           <span className="size-2.5 rounded-full bg-line" />
           <span className="size-2.5 rounded-full bg-accent" />
         </div>
-        <p className="min-w-0 flex-1 truncate text-center text-xs text-muted">sundaram.dev — terminal</p>
+        <p className="min-w-0 flex-1 truncate text-center text-xs text-muted">{site.domain} — terminal</p>
         <button type="button" className="icon-btn" onClick={clear} aria-label="Clear terminal output">
           <Eraser className="size-4" aria-hidden="true" />
         </button>

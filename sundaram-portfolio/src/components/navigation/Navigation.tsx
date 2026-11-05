@@ -58,7 +58,7 @@ export function Navigation() {
       <div className="mx-auto max-w-[1200px] rounded-2xl border border-line bg-[color-mix(in_srgb,var(--surface)_82%,transparent)] backdrop-blur-md">
         <div className="flex h-14 items-center justify-between gap-4 pr-2 pl-4">
           <Link href="/#home" className="font-display text-[0.95rem] font-bold tracking-wide whitespace-nowrap">
-            SUNDARAM<span className="text-accent">.DEV</span>
+            SUNDARAMTECH<span className="text-accent">.DEV</span>
           </Link>
 
           <nav aria-label="Primary" className="hidden lg:block">

@@ -1,3 +1,10 @@
+/** The site's brand and production domain. */
+export const site = {
+  name: "SundaramTech",
+  domain: "sundaramtech.dev",
+  url: "https://sundaramtech.dev",
+} as const;
+
 export const profile = {
   name: "Sundaram Dutta Modak",
   firstName: "Sundaram",

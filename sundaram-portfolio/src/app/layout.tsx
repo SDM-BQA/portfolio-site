@@ -6,7 +6,7 @@ import { Cursor } from "@/components/cursor/Cursor";
 import { Navigation } from "@/components/navigation/Navigation";
 import { TerminalProvider } from "@/components/terminal/TerminalProvider";
 import { SiteEffects } from "@/components/ui/SiteEffects";
-import { profile } from "@/data/profile";
+import { profile, site } from "@/data/profile";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -14,19 +14,17 @@ const spaceGrotesk = Space_Grotesk({ variable: "--font-space-grotesk", subsets: 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const jetBrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"] });
 
-/** Set NEXT_PUBLIC_SITE_URL once the production domain is confirmed; canonical URLs depend on it. */
-const siteUrl =process.env.NEXT_PUBLIC_SITE_URL;
+/** NEXT_PUBLIC_SITE_URL can override the domain, e.g. for a staging deployment. */
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? site.url;
 
 const title = `${profile.name} | ${profile.role}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    siteUrl ?? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "localhost:3000"}`,
-  ),
-  ...(siteUrl ? { alternates: { canonical: "/" } } : {}),
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title,
   description: profile.description,
-  openGraph: { title, description: profile.description, type: "website", siteName: "Sundaram.dev" },
+  openGraph: { title, description: profile.description, type: "website", siteName: site.name },
   twitter: { card: "summary_large_image", title, description: profile.description },
 };
 

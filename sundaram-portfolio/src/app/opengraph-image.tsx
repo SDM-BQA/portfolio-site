@@ -20,7 +20,7 @@ export default function OpenGraphImage() {
       }}
     >
       <div style={{ display: "flex", fontSize: 30, fontWeight: 700 }}>
-        SUNDARAM<span style={{ color: "#A78BFA" }}>.DEV</span>
+        SUNDARAMTECH<span style={{ color: "#A78BFA" }}>.DEV</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: 84, fontWeight: 700 }}>{profile.name}</div>

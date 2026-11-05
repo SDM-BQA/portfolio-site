@@ -72,7 +72,7 @@ export function LoadingScreen() {
       <div aria-hidden="true" className="loader-grid" />
       <div aria-hidden="true" className="w-full max-w-xl px-6">
         <p className="loader-wordmark font-display text-4xl font-bold tracking-tight md:text-6xl">
-          SUNDARAM<span className="text-accent">.DEV</span>
+          SUNDARAMTECH<span className="text-accent">.DEV</span>
         </p>
 
         <div className="mt-8 font-mono text-[0.8125rem] leading-7 md:text-sm">
