@@ -11,7 +11,7 @@ export const profile = {
   role: "Full Stack Developer",
   location: "Bengaluru, Karnataka, India",
   locationShort: "Bengaluru, India",
-  email: "sundaram.duttamodak.25@gmail.com",
+  email: "hello@sundaramtech.dev",
   linkedin: "https://www.linkedin.com/in/sundaram-dutta-modak",
   github: "https://github.com/sdm-bqa",
   resume: "/resume.pdf",
