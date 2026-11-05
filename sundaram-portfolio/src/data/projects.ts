@@ -71,6 +71,72 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "schemelens",
+    name: "SchemeLens",
+    category: "Personal project",
+    period: "November 2026",
+    summary:
+      "Rules for schemes like PM-KISAN and Ayushman Bharat are buried in long English PDFs, so SchemeLens answers questions in English, Hindi or Kannada using only the official documents, with a clickable citation for every claim.",
+    stack: ["React", "Node.js", "Express", "MongoDB Atlas", "Vector Search", "Gemini", "Voyage AI"],
+    links: [{ label: "Source code", href: "https://github.com/SDM-BQA/scheme-lens" }],
+    outcome: {
+      label: "Evaluation",
+      text: "100% refusal accuracy on a 29-question test set in three languages, and 8/8 live prompt-injection checks passed.",
+    },
+    note: "Not official or legal advice. The test set is small and the thresholds were tuned on it, so expect lower accuracy on new questions.",
+    sections: [
+      {
+        heading: "The problem",
+        body: "Who is eligible, how much is paid and which documents are needed are all public, but spread across long English PDFs. A general chatbot can answer from outdated or invented memory, and for questions about money and eligibility a confident wrong answer is worse than no answer.",
+      },
+      {
+        heading: "How it works",
+        body: "A retrieval-augmented generation (RAG) app: it first finds the relevant passages in the official documents, then has the model answer only from those passages and cite each claim.",
+        flow: ["Official PDFs", "Section-aware chunks", "Voyage embeddings", "Atlas Vector Search", "Cited Gemini answer"],
+      },
+      {
+        heading: "What users get",
+        items: [
+          "Grounded answers: every [n] opens the source passage, page and official PDF.",
+          "An honest \"not found\": a similarity gate stops off-topic questions before any model call, the model replies NOT_FOUND when the documents can't answer, and an answer with no valid citation is never shown.",
+          "English, Hindi and Kannada: questions are answered in the same language from English documents, and the interface switches language too.",
+          "A scheme filter to search one scheme or all four (PM-KISAN, PM-JAY, PMAY-G, PMUY).",
+        ],
+      },
+      {
+        heading: "Measured, not assumed",
+        items: [
+          "29 questions written from the PDFs and verified by hand, including 9 paraphrased \"hard\" questions and off-topic ones that must be refused.",
+          "Answer correctness rose from 18/25 to 25/25 (hard set 1/8 to 8/8) after tuning; retrieval hit@5 stayed at 25/25.",
+          "The fix was the \"not found\" threshold: search already found the right page for paraphrased questions, but a strict gate refused them.",
+          "8/8 live prompt-injection checks passed, including planted malicious \"documents\"; in every case the model cited the genuine excerpt, never the planted one.",
+        ],
+      },
+      {
+        heading: "Key decisions",
+        items: [
+          "Chunking by structure (headings, then paragraphs, then list items) so an eligibility list stays with its intro line.",
+          "Repairing PDF reading order by reordering whole text blocks, after a simple line sort scrambled a two-column table.",
+          "Thresholding on true cosine similarity, after verifying that Atlas reports (1 + cosine) / 2.",
+          "Translating Hindi and Kannada questions to English first was measured and not adopted: no accuracy gain, an extra model call, and an off-topic question slipped past the gate.",
+        ],
+      },
+      {
+        heading: "How I used AI",
+        body: "Built step by step with Claude Code under a written contract: one build step per commit, hard rules such as never fabricating citations, and a log of what the AI generated, what I decided and what went wrong. Writing harder test questions caught a similarity threshold the AI had set too strictly; reading failed rows caught an evaluation that miscounted provider outages as wrong answers.",
+      },
+      {
+        heading: "Limitations",
+        items: [
+          "A small corpus: 5 documents across 4 schemes, some several years old.",
+          "No OCR, so image-only pages are skipped.",
+          "The Hindi and Kannada interface text is AI-translated and awaiting native-speaker review.",
+          "Free-tier model and embedding providers, with rate limits and occasional busy errors. Not yet deployed.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "corelog",
     name: "CoreLog",
     category: "Personal project",

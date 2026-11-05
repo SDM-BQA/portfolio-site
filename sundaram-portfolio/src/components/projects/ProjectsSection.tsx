@@ -14,8 +14,10 @@ export function ProjectsSection() {
         <ul className="mt-10 grid gap-5 md:grid-cols-2">
           {projects.map((project, index) => {
             const featured = index === 0;
+            // With an odd number of regular cards, the last one fills the row instead of sitting alone.
+            const lastAlone = index === projects.length - 1 && (projects.length - 1) % 2 === 1;
             return (
-              <li key={project.slug} className={`flex ${featured ? "md:col-span-2" : ""}`}>
+              <li key={project.slug} className={`flex ${featured || lastAlone ? "md:col-span-2" : ""}`}>
                 <Reveal delay={index * 0.08} className="flex w-full">
                   <article
                     className={`card project-card spotlight tilt relative flex w-full flex-col gap-6 p-6 md:p-8 ${

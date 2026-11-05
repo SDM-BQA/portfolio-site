@@ -1,4 +1,4 @@
-import { ArrowRight, MapPin, Users } from "lucide-react";
+import { ArrowRight, FileText, MapPin, Users } from "lucide-react";
 
 /** Small illustrations built from each project's documented behaviour, not screenshots or sample data. */
 export function ProjectPreview({ slug }: { slug: string }) {
@@ -14,6 +14,29 @@ export function ProjectPreview({ slug }: { slug: string }) {
             </span>
           </span>
         ))}
+      </div>
+    );
+  }
+
+  if (slug === "schemelens") {
+    // The question and answer are the PM-KISAN example from the project's own tests.
+    return (
+      <div aria-hidden="true" className="preview space-y-2">
+        <p className="text-muted">How much does PM-KISAN pay per year?</p>
+        <p className="leading-relaxed">
+          Rs. 6,000 a year, in three instalments{" "}
+          <span className="preview-step rounded bg-surface px-1.5 py-0.5 font-mono text-xs text-accent">[1]</span>
+        </p>
+        <p className="flex items-center gap-1.5 text-muted">
+          <FileText className="size-3.5" /> Official PDF, cited page
+          <span className="ml-auto flex gap-1">
+            {["EN", "हि", "ಕ"].map((lang, index) => (
+              <span key={lang} className="preview-step rounded border border-line px-1.5 text-xs" style={{ transitionDelay: `${index * 90}ms` }}>
+                {lang}
+              </span>
+            ))}
+          </span>
+        </p>
       </div>
     );
   }

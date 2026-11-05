@@ -5,11 +5,13 @@ export type SkillGroup = { category: string; skills: Skill[] };
 const HELPEE = "Helpee";
 const CORELOG = "CoreLog";
 const MENTOR = "Virtual Mentor";
+const SCHEME = "SchemeLens";
 const THIS_SITE = "This site";
 
 /** Project filters for the skills section, with the section each one links to. */
 export const skillProjects = [
   { name: HELPEE, href: "#experience" },
+  { name: SCHEME, href: "#projects" },
   { name: CORELOG, href: "#projects" },
   { name: MENTOR, href: "#projects" },
   { name: THIS_SITE, href: "#home" },
@@ -20,7 +22,7 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Languages",
     skills: [
-      { name: "JavaScript", context: "My everyday language across the frontend and backend.", usedIn: [MENTOR], core: true },
+      { name: "JavaScript", context: "My everyday language across the frontend and backend.", usedIn: [SCHEME, MENTOR], core: true },
       { name: "TypeScript", context: "Typed code for larger applications, including CoreLog and this portfolio.", usedIn: [CORELOG, THIS_SITE], core: true },
       { name: "Java", context: "Part of my programming foundation, including academic coursework.", usedIn: [] },
       { name: "C", context: "Part of my programming foundation, including data structure programs.", usedIn: [] },
@@ -29,7 +31,7 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
     skills: [
-      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, CORELOG, MENTOR, THIS_SITE], core: true },
+      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, SCHEME, CORELOG, MENTOR, THIS_SITE], core: true },
       { name: "HTML", context: "The base of every web interface I build; covered by my freeCodeCamp Responsive Web Design certificate.", usedIn: [THIS_SITE] },
       { name: "CSS", context: "Responsive layouts and theming, including this site's light and dark design tokens.", usedIn: [THIS_SITE] },
       { name: "Tailwind CSS", context: "Utility-first styling, used throughout this portfolio.", usedIn: [THIS_SITE] },
@@ -38,16 +40,16 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Backend",
     skills: [
-      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, CORELOG, MENTOR], core: true },
-      { name: "Express", context: "Server framework for the CoreLog backend and the Virtual Mentor REST APIs.", usedIn: [CORELOG, MENTOR], core: true },
+      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, SCHEME, CORELOG, MENTOR], core: true },
+      { name: "Express", context: "Server framework for the SchemeLens API, the CoreLog backend and the Virtual Mentor REST APIs.", usedIn: [SCHEME, CORELOG, MENTOR], core: true },
       { name: "GraphQL", context: "Designing APIs and optimising resolvers for dashboard modules at Helpee.", usedIn: [HELPEE], core: true },
-      { name: "REST APIs", context: "Built for authentication, session tracking and data storage in Virtual Mentor.", usedIn: [MENTOR] },
+      { name: "REST APIs", context: "The validated, rate-limited question API in SchemeLens, and authentication, session tracking and data storage in Virtual Mentor.", usedIn: [SCHEME, MENTOR] },
     ],
   },
   {
     category: "Databases",
     skills: [
-      { name: "MongoDB", context: "Query optimisation at Helpee and multi-content-type schema design in CoreLog.", usedIn: [HELPEE, CORELOG, MENTOR], core: true },
+      { name: "MongoDB", context: "Query optimisation at Helpee, Atlas Vector Search for retrieval in SchemeLens, and multi-content-type schema design in CoreLog.", usedIn: [HELPEE, SCHEME, CORELOG, MENTOR], core: true },
       { name: "MySQL", context: "Relational database skills, supported by SQL Essential Training on LinkedIn Learning.", usedIn: [] },
     ],
   },
@@ -71,9 +73,9 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "AI tools",
     skills: [
-      { name: "Claude", context: "AI-assisted development; I completed Anthropic's Claude Code in Action course.", usedIn: [] },
+      { name: "Claude", context: "AI-assisted development: SchemeLens was built step by step with Claude Code under a written contract, and I completed Anthropic's Claude Code in Action course.", usedIn: [SCHEME] },
       { name: "Codex", context: "AI-assisted development.", usedIn: [] },
-      { name: "Gemini", context: "AI-assisted development.", usedIn: [] },
+      { name: "Gemini", context: "The answer model in SchemeLens, kept behind a swappable interface; also used for AI-assisted development.", usedIn: [SCHEME] },
     ],
   },
 ];
