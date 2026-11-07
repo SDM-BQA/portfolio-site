@@ -8,7 +8,7 @@ const FRESH_DAYS = 60;
 
 const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
-function relative(iso: string, now: number) {
+export function relative(iso: string, now: number) {
   const seconds = (new Date(iso).getTime() - now) / 1000;
   const steps: [Intl.RelativeTimeFormatUnit, number][] = [
     ["day", 86400],
@@ -27,7 +27,7 @@ function subscribe(onChange: () => void) {
 }
 
 /** The current time, rounded to the minute; null while server rendering, so markup always matches. */
-function useNow() {
+export function useNow() {
   return useSyncExternalStore(
     subscribe,
     () => Math.floor(Date.now() / 60_000) * 60_000,

@@ -303,6 +303,100 @@ h3 {
   color: var(--accent);
 }
 
+/* GitHub: contribution heatmap in the accent colour. */
+/* Cells grow on wide screens so the year fills the card. */
+.gh-scroll {
+  --cell: 11px;
+}
+
+@media (min-width: 1024px) {
+  .gh-scroll {
+    --cell: 13px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .gh-scroll {
+    --cell: 16px;
+  }
+}
+
+.gh-grid,
+.gh-months {
+  display: grid;
+  grid-auto-columns: var(--cell);
+  gap: 3px;
+}
+
+.gh-grid {
+  grid-template-rows: repeat(7, var(--cell));
+}
+
+.gh-months {
+  height: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.gh-months > span {
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+.gh-weekdays {
+  display: grid;
+  grid-template-rows: repeat(7, var(--cell));
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: var(--cell);
+  color: var(--muted);
+}
+
+.gh-cell {
+  display: inline-block;
+  width: var(--cell, 11px);
+  height: var(--cell, 11px);
+  border-radius: 2px;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    outline-color var(--dur-fast) var(--ease);
+}
+
+.gh-l0 { background: var(--elevated); box-shadow: inset 0 0 0 1px var(--line); }
+.gh-l1 { background: color-mix(in srgb, var(--accent) 30%, var(--elevated)); }
+.gh-l2 { background: color-mix(in srgb, var(--accent) 55%, var(--elevated)); }
+.gh-l3 { background: color-mix(in srgb, var(--accent) 80%, var(--elevated)); }
+.gh-l4 { background: var(--accent); }
+
+.gh-grid .gh-cell:hover,
+.gh-grid .gh-cell:focus-visible {
+  transform: scale(1.35);
+}
+
+.gh-grid .gh-cell:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+.gh-grid .gh-cell[aria-pressed="true"] {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.gh-badge {
+  transition:
+    transform var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.gh-badge:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
 /* Experience: a git graph of roles. */
 .git-commit {
   transition:

@@ -1,5 +1,6 @@
 import { About } from "@/components/about/About";
 import { Contact } from "@/components/contact/Contact";
+import { GitHubSection } from "@/components/github/GitHubSection";
 import { Education } from "@/components/education/Education";
 import { Hero } from "@/components/hero/Hero";
 import { LoadingScreen } from "@/components/hero/LoadingScreen";
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <Timeline />
       <ProjectsSection />
+      <GitHubSection />
       <TerminalSection />
       <About />
       <Skills />
