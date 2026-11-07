@@ -3,10 +3,14 @@ import Link from "next/link";
 import { ExternalLink } from "@/components/ui/ExternalLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RepoBadge } from "@/components/ui/RecentActivity";
 import { projects } from "@/data/projects";
+import { getGitHubActivity } from "@/lib/github";
 import { ProjectPreview } from "./ProjectPreview";
 
-export function ProjectsSection() {
+export async function ProjectsSection() {
+  const activity = await getGitHubActivity();
+
   return (
     <section id="projects" aria-labelledby="projects-heading" className="py-16 md:py-24">
       <div className="shell">
@@ -16,6 +20,7 @@ export function ProjectsSection() {
             const featured = index === 0;
             // With an odd number of regular cards, the last one fills the row instead of sitting alone.
             const lastAlone = index === projects.length - 1 && (projects.length - 1) % 2 === 1;
+            const repo = project.repo ? activity?.repos[project.repo.toLowerCase()] : undefined;
             return (
               <li key={project.slug} className={`flex ${featured || lastAlone ? "md:col-span-2" : ""}`}>
                 <Reveal delay={index * 0.08} className="flex w-full">
@@ -37,6 +42,11 @@ export function ProjectsSection() {
                           {project.name}
                         </Link>
                       </h3>
+                      {repo && (
+                        <div className="mt-2">
+                          <RepoBadge pushedAt={repo.pushedAt} stars={repo.stars} />
+                        </div>
+                      )}
                       <p className="mt-3 flex-1 leading-relaxed text-muted">{project.summary}</p>
                       {!featured && (
                         <div className="mt-5">

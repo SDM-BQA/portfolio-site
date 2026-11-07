@@ -3,7 +3,9 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import { ExternalLink } from "@/components/ui/ExternalLink";
+import { LatestPush } from "@/components/ui/RecentActivity";
 import { profile } from "@/data/profile";
+import { getGitHubActivity } from "@/lib/github";
 import { CodeRain } from "./CodeRain";
 import { HeroCodeLine } from "./HeroCodeLine";
 import { HeroVisual } from "./HeroVisual";
@@ -19,7 +21,9 @@ const proofPoints = [
 
 const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 
-export function Hero() {
+export async function Hero() {
+  const latest = (await getGitHubActivity())?.latest;
+
   return (
     <section id="home" aria-labelledby="hero-heading" className="relative isolate flex min-h-svh flex-col overflow-x-clip pt-24 lg:pt-28">
       <div aria-hidden="true" className="hero-backdrop absolute inset-0 -z-10" />
@@ -64,6 +68,12 @@ export function Hero() {
               <LinkedInIcon className="size-[18px]" />
             </ExternalLink>
           </div>
+
+          {latest && (
+            <div className="hero-in mt-6 min-h-5" style={delay(400)}>
+              <LatestPush name={latest.name} url={latest.url} pushedAt={latest.pushedAt} />
+            </div>
+          )}
         </div>
 
         <div className="hero-in" style={delay(200)}>

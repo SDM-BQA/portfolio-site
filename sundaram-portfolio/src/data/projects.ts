@@ -16,6 +16,8 @@ export type Project = {
   stack: string[];
   /** Only links checked against the live destination belong here (FR-011). */
   links: ProjectLink[];
+  /** The public GitHub repo under the site's account, for live activity on the card. */
+  repo?: string;
   outcome?: { label: string; text: string };
   note?: string;
   sections: ProjectSection[];
@@ -78,6 +80,7 @@ export const projects: Project[] = [
     summary:
       "Lab reports are dense with numbers and abbreviations, so Paimana reads a report, checks every value against the range printed on it with plain, tested code, and explains flagged results in plain English or Hindi, without storing anything.",
     stack: ["React", "TypeScript", "Node.js", "Express", "Gemini", "zod", "Vercel", "Render"],
+    repo: "paimana-lab-report-explainer",
     links: [
       { label: "Live demo", href: "https://paimana.sundaramtech.dev" },
       { label: "Source code", href: "https://github.com/SDM-BQA/paimana-lab-report-explainer" },
@@ -152,6 +155,7 @@ export const projects: Project[] = [
     summary:
       "Rules for schemes like PM-KISAN and Ayushman Bharat are buried in long English PDFs, so SchemeLens answers questions in English, Hindi or Kannada using only the official documents, with a clickable citation for every claim.",
     stack: ["React", "Node.js", "Express", "MongoDB Atlas", "Vector Search", "Gemini", "Voyage AI"],
+    repo: "scheme-lens",
     links: [{ label: "Source code", href: "https://github.com/SDM-BQA/scheme-lens" }],
     outcome: {
       label: "Evaluation",
@@ -218,6 +222,7 @@ export const projects: Project[] = [
     summary:
       "Tracking media, journaling and expenses usually means several apps and repetitive entries, so CoreLog brings them into one life-logging platform with reusable templates.",
     stack: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Leaflet"],
+    repo: "CoreLog",
     links: [
       { label: "Live demo", href: "https://dashboard-core-log.vercel.app" },
       { label: "Frontend code", href: "https://github.com/SDM-BQA/CoreLog" },
@@ -258,6 +263,7 @@ export const projects: Project[] = [
     summary:
       "Finding and scheduling time with a mentor is hard to do informally, so Virtual Mentor gives mentors and mentees profiles, session booking and their own dashboards.",
     stack: ["React", "JavaScript", "Node.js", "Express", "MongoDB"],
+    repo: "virtual_mentor_new",
     links: [{ label: "Source code", href: "https://github.com/SDM-BQA/virtual_mentor_new" }],
     sections: [
       {
