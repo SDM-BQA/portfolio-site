@@ -18,6 +18,31 @@ export function ProjectPreview({ slug }: { slug: string }) {
     );
   }
 
+  if (slug === "paimana") {
+    // The synthetic glucose row from the project's own prompt-injection test report.
+    return (
+      <div aria-hidden="true" className="preview space-y-2.5">
+        <p className="flex items-baseline justify-between gap-3">
+          <span>Fasting Glucose</span>
+          <span>
+            140 <span className="text-muted">mg/dL</span>
+          </span>
+        </p>
+        <div className="relative h-1.5 rounded-full bg-line">
+          {/* To scale: 70–100 spans 25–50% of the bar, so 140 sits at about 83%. */}
+          <span className="absolute inset-y-0 left-[25%] w-[25%] rounded-full bg-success/60" />
+          <span className="preview-step absolute top-1/2 left-[83%] size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-surface bg-error" />
+        </div>
+        <p className="flex items-center justify-between gap-3 text-muted">
+          <span>Printed range 70 – 100</span>
+          <span className="preview-step rounded border border-line px-1.5 text-xs font-semibold text-error" style={{ transitionDelay: "90ms" }}>
+            HIGH · by code
+          </span>
+        </p>
+      </div>
+    );
+  }
+
   if (slug === "schemelens") {
     // The question and answer are the PM-KISAN example from the project's own tests.
     return (
