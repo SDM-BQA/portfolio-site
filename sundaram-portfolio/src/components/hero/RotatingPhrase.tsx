@@ -5,8 +5,8 @@ import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
-const PHRASES = ["I build web experiences.", "I engineer digital products.", "I solve real problems."];
-const LONGEST = PHRASES[1];
+// Each phrase is a real project: Paimana, Helpee and SchemeLens.
+const PHRASES = ["I make lab reports readable.", "I catch unpaid invoices.", "I turn PDFs into answers."];
 const TYPE_MS = 60;
 const DELETE_MS = 28;
 const HOLD_MS = 1800;
@@ -46,10 +46,10 @@ export function RotatingPhrase() {
   const text = reduced ? PHRASES[2] : PHRASES[phrase].slice(0, length);
 
   return (
-    <span className="flex items-center gap-3">
+    <span className="flex items-center gap-2">
       <span className="sr-only">{PHRASES.join(" ")}</span>
       <span ref={ref} aria-hidden="true" className="grid">
-        <span className="invisible col-start-1 row-start-1">{LONGEST}</span>
+        <span className="invisible col-start-1 row-start-1">{reduced ? PHRASES[2] : PHRASES[phrase]}</span>
         <span data-typewriter className="col-start-1 row-start-1 text-accent">
           {text}
           {!reduced && <span className={`type-caret ${paused ? "" : "is-live"}`} />}

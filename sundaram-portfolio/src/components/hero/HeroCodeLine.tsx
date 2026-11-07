@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DECODE_MS, hasIntroPlayed, onNameReplay, REVEAL_DELAY_MS, whenLoaderDone } from "./intro";
+import { DECODE_MS, hasIntroPlayed, onNameReplay, REVEAL_DELAY_MS } from "./intro";
 
 // The hex really is "Sundaram" in ASCII.
 const CALL = 'const name = decode("53 75 6e 64 61 72 61 6d");';
@@ -44,14 +44,12 @@ export function HeroCodeLine() {
       }, TYPE_MS);
     };
 
-    const stopWaiting =
-      hasIntroPlayed() || window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? () => {}
-        : whenLoaderDone(() => run(REVEAL_DELAY_MS + DECODE_MS));
+    if (!hasIntroPlayed() && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      run(REVEAL_DELAY_MS + DECODE_MS);
+    }
     const stopListening = onNameReplay(() => run(DECODE_MS));
 
     return () => {
-      stopWaiting();
       stopListening();
       clear();
     };

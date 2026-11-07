@@ -34,7 +34,7 @@ export function Contact() {
         </Reveal>
 
         {/* Both columns open with a label and stretch to the same height, so their edges line up. */}
-        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8">
+        <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8">
           <Reveal delay={0.05} className="flex min-w-0 flex-col">
             <p className="eyebrow uppercase">Write to me</p>
             <div className="mt-3 flex-1">
@@ -44,7 +44,7 @@ export function Contact() {
 
           <Reveal delay={0.15} className="flex flex-col">
             <p className="eyebrow uppercase">Or find me on</p>
-            <ul className="mt-3 grid flex-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <ul className="mt-3 grid flex-1 grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-3 lg:grid-cols-1">
               {channels.map(({ label, detail, handle, href, Icon, brand }) => (
                 <li key={label}>
                   <ExternalLink

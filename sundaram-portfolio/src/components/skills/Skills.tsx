@@ -75,7 +75,7 @@ export function Skills() {
             })}
           </div>
 
-          <div className="mt-6 grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="mt-6 grid grid-cols-[minmax(0,1fr)] items-start gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <aside
               aria-live="polite"
               aria-label="Selected tool"
@@ -117,7 +117,7 @@ export function Skills() {
 
             <div className="lg:order-1">
               <h3 className="eyebrow uppercase">Core stack</h3>
-              <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+              <ul className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2">
                 {coreSkills.map((skill) => {
                   const { Icon } = skillIcons[skill.name];
                   const isSelected = skill.name === selected.name;

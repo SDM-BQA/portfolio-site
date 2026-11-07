@@ -4,7 +4,6 @@ import { Pause, Play } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { whenLoaderDone } from "./intro";
 import { SHAPES } from "./particleField";
 
 const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
@@ -48,10 +47,6 @@ export function HeroVisual() {
   const [shape, setShape] = useState(0);
   const [paused, setPaused] = useState(false);
   const nextMorphAt = useRef(0);
-  const [loaderDone, setLoaderDone] = useState(false);
-
-  // Keeps the loading screen smooth, and the particles gather just as the site appears.
-  useEffect(() => whenLoaderDone(() => setLoaderDone(true)), []);
 
   // Morphs on an interval, holding off briefly while the visitor is playing with it.
   useEffect(() => {
@@ -75,7 +70,7 @@ export function HeroVisual() {
     <div className="mx-auto w-full max-w-[20rem] md:max-w-sm lg:max-w-[30rem]">
       <div className="relative aspect-square w-full">
         <StaticMark hidden={ready} />
-        {wantsScene && loaderDone && (
+        {wantsScene && (
           <SceneBoundary>
             <HeroScene
               shape={shape}

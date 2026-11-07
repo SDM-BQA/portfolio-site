@@ -3,23 +3,20 @@ import { Contact } from "@/components/contact/Contact";
 import { GitHubSection } from "@/components/github/GitHubSection";
 import { Education } from "@/components/education/Education";
 import { Hero } from "@/components/hero/Hero";
-import { LoadingScreen } from "@/components/hero/LoadingScreen";
 import { ProjectsSection } from "@/components/projects/ProjectsSection";
 import { Skills } from "@/components/skills/Skills";
-import { TerminalSection } from "@/components/terminal/TerminalSection";
 import { Timeline } from "@/components/timeline/Timeline";
 
+// Where I work first (the promotion story), then what I've built, then with what.
 export default function Home() {
   return (
     <>
-      <LoadingScreen />
       <Hero />
       <Timeline />
       <ProjectsSection />
-      <GitHubSection />
-      <TerminalSection />
-      <About />
       <Skills />
+      <GitHubSection />
+      <About />
       <Education />
       <Contact />
     </>

@@ -20,6 +20,11 @@ export type Degree = {
   location: string;
   period: string;
   cgpa: number;
+  /** Projects built during the degree; each slug has a case study under /projects. */
+  projects?: { slug: string; name: string }[];
+  /** What was built, shown like a role's release notes in the Experience graph. */
+  details?: string[];
+  stack?: string[];
 };
 
 /** Most recent first. */
@@ -70,6 +75,14 @@ export const degrees: Degree[] = [
     location: "Bengaluru, Karnataka",
     period: "Completed November 2025",
     cgpa: 8.93,
+    projects: [{ slug: "virtual-mentor", name: "Virtual Mentor" }],
+    details: [
+      "Built Virtual Mentor, a web app that connects mentors with mentees for online mentoring sessions.",
+      "Mentors list their expertise and available time slots; mentees browse mentors and book sessions, with role-based access for each account type.",
+      "Built REST APIs with Express.js for authentication, session tracking and secure data storage.",
+      "Built a responsive React UI with reusable components, dynamic routing and dashboards for mentors and mentees.",
+    ],
+    stack: ["React", "JavaScript", "Node.js", "Express", "MongoDB"],
   },
   {
     id: "bsc",

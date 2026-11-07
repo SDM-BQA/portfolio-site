@@ -15,16 +15,18 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/sundaram-dutta-modak",
   github: "https://github.com/sdm-bqa",
   resume: "/resume.pdf",
-  tagline: "Building products. Solving real problems.",
+  /** Set to an image path (e.g. "/sundaram.jpg" in public/) to show a portrait in About. */
+  photo: undefined as string | undefined,
+  tagline: "Software that makes complicated things plain.",
   description:
-    "Full Stack Developer building practical web products with React, Node.js, GraphQL and MongoDB.",
+    "Full Stack Developer in Bengaluru building software that makes complicated things plain, with React, Node.js, GraphQL and MongoDB.",
   intro:
-    "Full Stack Developer crafting web applications with React, Node.js, GraphQL and MongoDB.",
+    "Full stack developer at Helpee Elder Care. I build software that makes complicated things plain for care teams, patients and citizens, with React, Node.js, GraphQL and MongoDB.",
   coreStack: ["React", "Node.js", "GraphQL", "MongoDB", "JavaScript", "TypeScript"],
   bio: [
-    "I'm Sundaram, a Full Stack Developer passionate about building practical digital products and solving real-world problems through technology.",
-    "I enjoy working across the frontend and backend, understanding how systems connect, and turning ideas into applications that people can actually use.",
-    "Beyond coding, I'm constantly exploring new technologies, improving my engineering skills and building things of my own.",
+    "I build software that makes complicated things plain: an unpaid invoice hidden in a closed case, a lab value outside its range, an eligibility rule buried in a government PDF.",
+    "At Helpee I work across the whole stack: React interfaces for care managers and caregivers, the Node.js and GraphQL services behind them, and MongoDB queries tuned so dashboards load quickly.",
+    "Outside work I build tools for everyday problems, like reading a lab report or checking whether a scheme applies to you, and I measure whether they actually work before I call them done.",
   ],
 } as const;
 
@@ -32,9 +34,9 @@ export const navItems = [
   { id: "home", label: "Home" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
   { id: "github", label: "GitHub" },
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ] as const;

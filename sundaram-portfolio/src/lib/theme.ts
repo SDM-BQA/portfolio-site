@@ -4,11 +4,11 @@ const STORAGE_KEY = "theme";
 
 /**
  * Runs inline before first paint so a stored or system theme never flashes. It also
- * decides whether the loading screen shows, and sends a refresh back to the top: some
+ * sends a refresh back to the top: some
  * browsers read scrollRestoration before this page runs, so it's set on the way out
  * and restored to "auto" on arrival, which keeps the Back button's position memory.
  */
-export const themeInitScript = `(function(){var d=document.documentElement;d.classList.add("js");var n=performance.getEntriesByType("navigation")[0],r=!!n&&n.type==="reload";var h=history;addEventListener("pagehide",function(){h.scrollRestoration="manual"});addEventListener("pageshow",function(){if(r){scrollTo({top:0,behavior:"instant"})}setTimeout(function(){h.scrollRestoration="auto"},500)});if(r){h.scrollRestoration="manual";if(location.hash)h.replaceState(h.state,"",location.pathname+location.search)}if(location.pathname==="/"&&(!location.hash||r))d.classList.add("boot");try{var t=localStorage.getItem("${STORAGE_KEY}");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";d.dataset.theme=t}catch(e){d.dataset.theme="dark"}})()`;
+export const themeInitScript = `(function(){var d=document.documentElement;d.classList.add("js");var n=performance.getEntriesByType("navigation")[0],r=!!n&&n.type==="reload";var h=history;addEventListener("pagehide",function(){h.scrollRestoration="manual"});addEventListener("pageshow",function(){if(r){scrollTo({top:0,behavior:"instant"})}setTimeout(function(){h.scrollRestoration="auto"},500)});if(r){h.scrollRestoration="manual";if(location.hash)h.replaceState(h.state,"",location.pathname+location.search)}try{var t=localStorage.getItem("${STORAGE_KEY}");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";d.dataset.theme=t}catch(e){d.dataset.theme="dark"}})()`;
 
 export function subscribeTheme(onChange: () => void) {
   const observer = new MutationObserver(onChange);

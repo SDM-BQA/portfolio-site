@@ -63,8 +63,8 @@ export default async function ProjectPage({ params }: Props) {
       </header>
 
       {project.outcome && (
-        <aside className="card mt-10 max-w-3xl border-l-2 border-l-accent p-6">
-          <p className="eyebrow uppercase">{project.outcome.label}</p>
+        <aside className="mt-10 max-w-3xl rounded-[0.875rem] border-l-2 border-highlight bg-highlight-soft p-6">
+          <p className="eyebrow text-highlight uppercase">{project.outcome.label}</p>
           <p className="font-display mt-2 text-xl leading-snug font-medium md:text-2xl">{project.outcome.text}</p>
         </aside>
       )}

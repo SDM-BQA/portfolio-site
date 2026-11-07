@@ -28,7 +28,7 @@ export function Education() {
                   </div>
                   <p className="flex-none text-right">
                     <span className="eyebrow block">CGPA</span>
-                    <CountUp value={item.cgpa} className="font-display mt-1 block text-4xl font-bold tracking-tight tabular-nums md:text-5xl" />
+                    <CountUp value={item.cgpa} className="font-display mt-1 block text-4xl font-bold tracking-tight text-highlight tabular-nums md:text-5xl" />
                   </p>
                 </article>
               </Reveal>
@@ -41,12 +41,17 @@ export function Education() {
             <Award className="size-5 text-accent" aria-hidden="true" />
             Certifications and achievements
           </h3>
-          <ul className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((item) => (
-              <li key={item} className="card spotlight p-4 text-[0.9375rem] leading-relaxed text-muted transition-colors hover:text-ink">
-                {item}
-              </li>
-            ))}
+          {/* A ruled list: these are reference details, so they don't need card weight. */}
+          <ul className="mt-5 grid gap-x-10 border-t border-line md:grid-cols-2">
+            {certifications.map((item) => {
+              const [title, issuer] = item.split(" — ");
+              return (
+                <li key={item} className="flex flex-col gap-1 border-b border-line py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <span className="leading-relaxed">{title}</span>
+                  <span className="eyebrow flex-none">{issuer ?? "Achievement"}</span>
+                </li>
+              );
+            })}
           </ul>
         </Reveal>
       </div>

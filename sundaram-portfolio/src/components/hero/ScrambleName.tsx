@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { hasIntroPlayed, markIntroPlayed, notifyNameReplay, REVEAL_DELAY_MS, whenLoaderDone } from "./intro";
+import { hasIntroPlayed, markIntroPlayed, notifyNameReplay, REVEAL_DELAY_MS } from "./intro";
 
 const GLYPHS = "0123456789abcdef{}<>/=;$#";
 const FRAME_MS = 45;
@@ -41,15 +41,12 @@ export function ScrambleName({ name }: { name: string }) {
   // The first-load reveal runs once, so it deliberately closes over the first render.
   useEffect(() => {
     if (hasIntroPlayed() || prefersReducedMotion()) return;
-    const stopWaiting = whenLoaderDone(() => {
-      timer.current = window.setTimeout(() => {
-        markIntroPlayed();
-        setStarted(true);
-        scramble();
-      }, REVEAL_DELAY_MS);
-    });
+    timer.current = window.setTimeout(() => {
+      markIntroPlayed();
+      setStarted(true);
+      scramble();
+    }, REVEAL_DELAY_MS);
     return () => {
-      stopWaiting();
       window.clearTimeout(timer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

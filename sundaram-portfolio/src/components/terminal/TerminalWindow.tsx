@@ -9,7 +9,6 @@ import { useTerminal } from "./TerminalProvider";
 
 const PROMPT = `visitor@${site.domain}:~$`;
 const SUGGESTIONS = ["help", "whoami", "experience", "projects", "skills", "stack --details react", "contact"];
-const DEMO_COMMAND = "help";
 
 const lineStyles = {
   text: "text-ink",
@@ -47,13 +46,10 @@ function Line({ line, onNavigate }: { line: OutputLine; onNavigate?: () => void 
 
 export function TerminalWindow({
   autoFocus = false,
-  demo = false,
   onClose,
   className = "",
 }: {
   autoFocus?: boolean;
-  /** Types one command the first time the window scrolls into view, unless the visitor got there first. */
-  demo?: boolean;
   onClose?: () => void;
   className?: string;
 }) {
@@ -62,8 +58,6 @@ export function TerminalWindow({
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const interacted = useRef(false);
   const inputId = useId();
 
   useEffect(() => {
@@ -75,39 +69,7 @@ export function TerminalWindow({
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
   }, [entries]);
 
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!demo || !root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let timer = 0;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-        let typed = 0;
-        const typeNext = () => {
-          if (interacted.current) return;
-          if (typed < DEMO_COMMAND.length) {
-            typed += 1;
-            setInput(DEMO_COMMAND.slice(0, typed));
-            timer = window.setTimeout(typeNext, 90);
-          } else {
-            submit(DEMO_COMMAND);
-            setInput("");
-          }
-        };
-        timer = window.setTimeout(typeNext, 500);
-      },
-      { threshold: 0.4 },
-    );
-    observer.observe(root);
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(timer);
-    };
-  }, [demo, submit]);
-
   function send(command: string) {
-    interacted.current = true;
     submit(command);
     setInput("");
     setHistoryIndex(null);
@@ -147,7 +109,6 @@ export function TerminalWindow({
 
   return (
     <div
-      ref={rootRef}
       className={`card flex min-h-0 flex-col overflow-hidden font-mono text-[0.8125rem] leading-relaxed shadow-[var(--shadow)] md:text-[0.9375rem] ${className}`}
     >
       <div className="flex items-center gap-3 border-b border-line bg-elevated py-1 pr-1 pl-4">
@@ -217,9 +178,6 @@ export function TerminalWindow({
             ref={inputRef}
             id={inputId}
             value={input}
-            onFocus={() => {
-              interacted.current = true;
-            }}
             onChange={(event) => {
               setInput(event.target.value);
               setHistoryIndex(null);
