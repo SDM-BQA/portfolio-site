@@ -73,6 +73,67 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "hivecolony",
+    name: "Hive Colony",
+    category: "Personal project",
+    period: "November 2026",
+    summary:
+      "Reddit games are usually single-player and quickly forgotten, so Hive Colony gives a whole subreddit one shared colony: every member works shifts, votes on laws and builds on the same live map, together.",
+    stack: ["React", "TypeScript", "Hono", "Redis", "Reddit Devvit", "HTML Canvas", "Web Audio API", "Tailwind CSS"],
+    repo: "HiveColony",
+    links: [
+      { label: "Play on Reddit", href: "https://www.reddit.com/r/HiveColony/" },
+      { label: "Source code", href: "https://github.com/SDM-BQA/HiveColony" },
+    ],
+    outcome: {
+      label: "Status",
+      text: "Live on r/HiveColony, approved and public on Reddit. It runs inside a Reddit post, with no app to install.",
+    },
+    sections: [
+      {
+        heading: "The idea",
+        body: "Reddit games are usually single-player, played for a minute and forgotten. Hive Colony runs one colony per subreddit: everyone who opens the post plays in the same world, at the same time, toward the same outcome, and the community has to keep it alive, grow it and build its wonder before it starves.",
+      },
+      {
+        heading: "How to play",
+        flow: ["Join the Hive", "Pick a role", "Work shifts", "Vote on laws", "Build the Great Hive"],
+        items: [
+          "Five roles feed the colony differently: Farmers grow food, Miners dig materials, Builders place and upgrade buildings, Scientists generate energy and research, and Explorers make random finds.",
+          "Each shift is a 10-second tap mini-game themed to the role; playing well gives up to ×1.5 output.",
+          "Stamina (5 points, refilling one every 4 minutes) allows a burst of shifts and gives a reason to come back.",
+          "Every 6 hours the subreddit votes on a law, such as Food Rationing or Science First, each a real trade-off.",
+          "Storms, fevers, meteor showers, traders and refugees keep the colony under pressure.",
+        ],
+      },
+      {
+        heading: "A real endgame",
+        items: [
+          "Once 70% of the island is built it expands, from 8×8 up to 12×12.",
+          "At 30 colonists and 300 research the Great Hive unlocks: a five-stage wonder paid for by the whole community.",
+          "Completing it gives everyone who worked the colony a permanent badge and records the win in the subreddit's Hall of Fame.",
+          "New Game+ starts a fresh colony with a permanent production bonus. If the population hits zero, the colony collapses and anyone can found the next one.",
+        ],
+      },
+      {
+        heading: "Built without a game engine",
+        items: [
+          "An animated isometric map drawn by hand on an HTML canvas, with no image assets: a day and night cycle, weather, growing crops, smoking mines and a pulsing Hive Core.",
+          "Procedural audio: sound effects and generative background music synthesised with the Web Audio API, with no audio files.",
+          "React 19 and Tailwind CSS on the client; a Hono server running in Reddit's serverless Devvit environment.",
+        ],
+      },
+      {
+        heading: "How the simulation works",
+        items: [
+          "The colony advances in 10-minute ticks with no background job: whenever anyone loads it, the server catches up on every missed tick, capped at 3 days so an abandoned colony can't simulate forever in one request.",
+          "Each tick, colonists eat, buildings use energy, maintenance falls due, random events may fire, the colony may grow and any timed-out vote is resolved.",
+          "Writes to the shared state go through Redis WATCH/MULTI/EXEC transactions, retried on conflict, so two players acting at once can't overwrite each other.",
+          "The simulation core and shared game logic are plain TypeScript with no platform imports, so they can be tested outside Reddit.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "paimana",
     name: "Paimana",
     category: "Personal project",

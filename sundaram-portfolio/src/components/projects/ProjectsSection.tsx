@@ -11,6 +11,9 @@ import { ProjectPreview } from "./ProjectPreview";
 
 type Repo = { pushedAt: string; stars: number } | undefined;
 
+/** Links to a running product ("Live demo", "Play on Reddit"), as opposed to its source code. */
+const isLive = (label: string) => /live|play/i.test(label);
+
 function Stack({ items }: { items: string[] }) {
   return (
     <ul aria-label="Technologies" className="flex flex-wrap gap-1.5">
@@ -93,7 +96,7 @@ function Row({ project, index, repo }: { project: Project; index: number; repo: 
   return (
     <article className="project-row relative grid grid-cols-[minmax(0,1fr)] items-center gap-6 py-10 md:grid-cols-2 md:gap-12 md:py-14">
       <div className={flipped ? "md:order-2" : undefined}>
-        <ProjectMedia slug={project.slug} liveUrl={project.links.find((link) => link.label === "Live demo")?.href} />
+        <ProjectMedia slug={project.slug} liveUrl={project.links.find((link) => isLive(link.label))?.href} />
       </div>
       <div className="min-w-0">
         <p className="eyebrow">

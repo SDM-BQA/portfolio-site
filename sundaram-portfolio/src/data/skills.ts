@@ -5,6 +5,7 @@ export type SkillGroup = { category: string; skills: Skill[] };
 const HELPEE = "Helpee";
 const CORELOG = "CoreLog";
 const MENTOR = "Virtual Mentor";
+const HIVE = "Hive Colony";
 const PAIMANA = "Paimana";
 const SCHEME = "SchemeLens";
 const THIS_SITE = "This site";
@@ -12,6 +13,7 @@ const THIS_SITE = "This site";
 /** Project filters for the skills section, with the section each one links to. */
 export const skillProjects = [
   { name: HELPEE, href: "#experience" },
+  { name: HIVE, href: "#projects" },
   { name: PAIMANA, href: "#projects" },
   { name: SCHEME, href: "#projects" },
   { name: CORELOG, href: "#projects" },
@@ -25,7 +27,7 @@ export const skillGroups: SkillGroup[] = [
     category: "Languages",
     skills: [
       { name: "JavaScript", context: "My everyday language across the frontend and backend.", usedIn: [PAIMANA, SCHEME, MENTOR], core: true },
-      { name: "TypeScript", context: "Typed code for larger applications, including Paimana, CoreLog and this portfolio.", usedIn: [PAIMANA, CORELOG, THIS_SITE], core: true },
+      { name: "TypeScript", context: "Typed code for larger applications, including Hive Colony's simulation, Paimana, CoreLog and this portfolio.", usedIn: [HIVE, PAIMANA, CORELOG, THIS_SITE], core: true },
       { name: "Java", context: "Part of my programming foundation, including academic coursework.", usedIn: [] },
       { name: "C", context: "Part of my programming foundation, including data structure programs.", usedIn: [] },
     ],
@@ -33,19 +35,19 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
     skills: [
-      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, PAIMANA, SCHEME, CORELOG, MENTOR, THIS_SITE], core: true },
+      { name: "React", context: "Internal dashboards at Helpee, plus the interfaces of my personal projects.", usedIn: [HELPEE, HIVE, PAIMANA, SCHEME, CORELOG, MENTOR, THIS_SITE], core: true },
       { name: "HTML", context: "The base of every web interface I build; covered by my freeCodeCamp Responsive Web Design certificate.", usedIn: [THIS_SITE] },
       { name: "CSS", context: "Responsive layouts and theming, including this site's light and dark design tokens.", usedIn: [THIS_SITE] },
-      { name: "Tailwind CSS", context: "Utility-first styling, used throughout this portfolio.", usedIn: [THIS_SITE] },
+      { name: "Tailwind CSS", context: "Utility-first styling, used throughout this portfolio and in Hive Colony.", usedIn: [HIVE, THIS_SITE] },
     ],
   },
   {
     category: "Backend",
     skills: [
-      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, PAIMANA, SCHEME, CORELOG, MENTOR], core: true },
+      { name: "Node.js", context: "Dashboard services and cron-based daily reports at Helpee, and my project backends.", usedIn: [HELPEE, HIVE, PAIMANA, SCHEME, CORELOG, MENTOR], core: true },
       { name: "Express", context: "Server framework for the Paimana and SchemeLens APIs, the CoreLog backend and the Virtual Mentor REST APIs.", usedIn: [PAIMANA, SCHEME, CORELOG, MENTOR], core: true },
       { name: "GraphQL", context: "Designing APIs and optimising resolvers for dashboard modules at Helpee.", usedIn: [HELPEE], core: true },
-      { name: "REST APIs", context: "The stateless extract and analyze endpoints in Paimana, the validated question API in SchemeLens, and authentication, session tracking and data storage in Virtual Mentor.", usedIn: [PAIMANA, SCHEME, MENTOR] },
+      { name: "REST APIs", context: "Hive Colony's game API for state, shifts and votes, the stateless extract and analyze endpoints in Paimana, the validated question API in SchemeLens, and authentication, session tracking and data storage in Virtual Mentor.", usedIn: [HIVE, PAIMANA, SCHEME, MENTOR] },
     ],
   },
   {
